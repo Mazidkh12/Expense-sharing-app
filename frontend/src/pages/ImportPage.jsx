@@ -23,7 +23,7 @@ const ImportPage = () => {
       formData.append("file", file);
 
       const response = await axios.post(
-        "http://127.0.0.1:8000/import/",
+        "https://expense-sharing-app-b8cu.onrender.com/import/",
         formData,
         {
           headers: {

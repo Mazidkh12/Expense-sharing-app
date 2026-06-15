@@ -10,7 +10,7 @@ const Groups = () => {
   const fetchGroups = async () => {
     try {
       const res = await axios.get(
-        "http://127.0.0.1:8000/groups"
+        "https://expense-sharing-app-b8cu.onrender.com/groups"
       );
 
       setGroups(res.data);
@@ -28,7 +28,7 @@ const Groups = () => {
 
     try {
       await axios.post(
-        "http://127.0.0.1:8000/groups",
+        "https://expense-sharing-app-b8cu.onrender.com/groups",
         {
           name: groupName,
           created_by: Number(createdBy),

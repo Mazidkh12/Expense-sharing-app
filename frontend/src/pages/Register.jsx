@@ -27,7 +27,7 @@ const Register = () => {
       setLoading(true);
 
       await axios.post(
-        "http://127.0.0.1:8000/users/register",
+        "https://expense-sharing-app-b8cu.onrender.com/users/register",
         {
           name: formData.name,
           email: formData.email,

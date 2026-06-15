@@ -9,7 +9,7 @@ const Issues = () => {
   const fetchIssues = async () => {
     try {
       const response = await axios.get(
-        "http://127.0.0.1:8000/import/issues"
+        "https://expense-sharing-app-b8cu.onrender.com/import/issues"
       );
 
       setIssues(response.data.issues || []);
@@ -28,7 +28,7 @@ const Issues = () => {
   const approveIssue = async (id) => {
     try {
       await axios.post(
-        `http://127.0.0.1:8000/import/issues/${id}/approve`
+        `https://expense-sharing-app-b8cu.onrender.com/import/issues/${id}/approve`
       );
 
       alert("Issue Approved");
@@ -43,7 +43,7 @@ const Issues = () => {
   const rejectIssue = async (id) => {
     try {
       await axios.post(
-        `http://127.0.0.1:8000/import/issues/${id}/reject`
+        `https://expense-sharing-app-b8cu.onrender.com/import/issues/${id}/reject`
       );
 
       alert("Issue Rejected");

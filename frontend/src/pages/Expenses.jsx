@@ -16,7 +16,7 @@ const Expenses = () => {
   const fetchExpenses = async () => {
     try {
       const res = await axios.get(
-        "http://127.0.0.1:8000/expenses"
+        "https://expense-sharing-app-b8cu.onrender.com/expenses"
       );
 
       setExpenses(res.data);
@@ -41,7 +41,7 @@ const Expenses = () => {
 
     try {
       await axios.post(
-        "http://127.0.0.1:8000/expenses",
+        "https://expense-sharing-app-b8cu.onrender.com/expenses",
         {
           group_id: Number(formData.group_id),
           paid_by: Number(formData.paid_by),

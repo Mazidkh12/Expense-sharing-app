@@ -26,7 +26,7 @@ const Login = () => {
       setLoading(true);
 
       const response = await axios.post(
-            "http://127.0.0.1:8000/users/login",
+            "https://expense-sharing-app-b8cu.onrender.com/users/login",
             {
                 email: formData.email,
                 password: formData.password,
