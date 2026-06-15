@@ -67,10 +67,13 @@ const Expenses = () => {
     } catch (error) {
       console.error(error);
 
-      alert(
-        error?.response?.data?.detail ||
-          "Failed to add expense"
-      );
+      const detail = error?.response?.data?.detail;
+
+      if (Array.isArray(detail)) {
+        alert(detail.map(err => err.msg).join("\n"));
+      } else {
+        alert(detail || "Failed to add expense");
+      }
     }
   };
 
