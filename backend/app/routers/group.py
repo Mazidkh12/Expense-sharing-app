@@ -1,3 +1,4 @@
+from app.models.group import Group
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app.models.expense import Expense
@@ -217,3 +218,17 @@ def get_settlements(
             j += 1
 
     return settlements
+
+
+@router.get("/")
+def get_groups(db: Session = Depends(get_db)):
+    groups = db.query(Group).all()
+
+    return [
+        {
+            "id": group.id,
+            "name": group.name,
+            "created_by": group.created_by
+        }
+        for group in groups
+    ]

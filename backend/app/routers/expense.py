@@ -1,6 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
+from app.models.expense import Expense
+
 from app.database_session import get_db
 
 from app.models.expense import Expense
@@ -83,3 +85,18 @@ def create_expense(
         "message": "Expense created",
         "expense_id": expense.id
     }
+
+@router.get("/")
+def get_expenses(db: Session = Depends(get_db)):
+    expenses = db.query(Expense).all()
+
+    return [
+        {
+            "id": expense.id,
+            "group_id": expense.group_id,
+            "paid_by": expense.paid_by,
+            "description": expense.description,
+            "amount": float(expense.amount)
+        }
+        for expense in expenses
+    ]
