@@ -22,7 +22,6 @@ The application was designed to solve real-world shared expense management probl
 * FastAPI
 * SQLAlchemy
 * Pydantic
-* JWT Authentication
 
 ### Database
 
@@ -40,7 +39,6 @@ The application was designed to solve real-world shared expense management probl
 
 * User Registration
 * User Login
-* JWT-based Authentication
 
 ### Group Management
 
