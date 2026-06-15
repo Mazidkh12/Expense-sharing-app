@@ -90,13 +90,27 @@ def create_expense(
 def get_expenses(db: Session = Depends(get_db)):
     expenses = db.query(Expense).all()
 
-    return [
-        {
+    result = []
+
+    for expense in expenses:
+
+        splits = db.query(ExpenseSplit).filter(
+            ExpenseSplit.expense_id == expense.id
+        ).all()
+
+        result.append({
             "id": expense.id,
             "group_id": expense.group_id,
             "paid_by": expense.paid_by,
             "description": expense.description,
-            "amount": float(expense.amount)
-        }
-        for expense in expenses
-    ]
+            "amount": float(expense.amount),
+            "splits": [
+                {
+                    "user_id": split.user_id,
+                    "share_amount": float(split.share_amount)
+                }
+                for split in splits
+            ]
+        })
+
+    return result

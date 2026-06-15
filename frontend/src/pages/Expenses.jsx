@@ -226,6 +226,10 @@ const Expenses = () => {
                     Paid By
                   </th>
 
+                  <th className="px-6 py-4 text-left">
+                    Split Details
+                  </th>
+
                 </tr>
 
               </thead>
@@ -258,6 +262,19 @@ const Expenses = () => {
                       <td className="px-6 py-4">
                         {expense.paid_by}
                       </td>
+                      <td className="px-6 py-4">
+                        {expense.splits?.length > 0 ? (
+                          expense.splits.map((split, index) => (
+                            <div key={index}>
+                              User {split.user_id}: ₹{split.share_amount}
+                            </div>
+                          ))
+                        ) : (
+                          <span className="text-gray-400">
+                            No Splits
+                          </span>
+                        )}
+                      </td>
 
                     </tr>
                   ))
@@ -265,7 +282,7 @@ const Expenses = () => {
                   <tr>
 
                     <td
-                      colSpan="5"
+                      colSpan="6"
                       className="text-center py-10 text-gray-400"
                     >
                       No Expenses Found
