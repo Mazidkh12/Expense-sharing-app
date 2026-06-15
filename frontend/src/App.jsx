@@ -1,11 +1,14 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Login from "./pages/Login";
+import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import Groups from "./pages/Groups";
 import Expenses from "./pages/Expenses";
 import ImportPage from "./pages/ImportPage";
 import Issues from "./pages/Issues";
+
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
@@ -18,28 +21,53 @@ function App() {
         />
 
         <Route
+          path="/register"
+          element={<Register />}
+        />
+
+        <Route
           path="/dashboard"
-          element={<Dashboard />}
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
         />
 
         <Route
           path="/groups"
-          element={<Groups />}
+          element={
+            <ProtectedRoute>
+              <Groups />
+            </ProtectedRoute>
+          }
         />
 
         <Route
           path="/expenses"
-          element={<Expenses />}
+          element={
+            <ProtectedRoute>
+              <Expenses />
+            </ProtectedRoute>
+          }
         />
 
         <Route
           path="/import"
-          element={<ImportPage />}
+          element={
+            <ProtectedRoute>
+              <ImportPage />
+            </ProtectedRoute>
+          }
         />
 
         <Route
           path="/issues"
-          element={<Issues />}
+          element={
+            <ProtectedRoute>
+              <Issues />
+            </ProtectedRoute>
+          }
         />
 
       </Routes>

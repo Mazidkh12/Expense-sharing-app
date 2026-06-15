@@ -2,10 +2,11 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 
-const Login = () => {
+const Register = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
+    name: "",
     email: "",
     password: "",
   });
@@ -19,37 +20,29 @@ const Login = () => {
     });
   };
 
-  const handleLogin = async (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
 
     try {
       setLoading(true);
 
-      const response = await axios.post(
-            "http://127.0.0.1:8000/users/login",
-            {
-                email: formData.email,
-                password: formData.password,
-            }
-        );
-
-      localStorage.setItem(
-        "token",
-        response.data.access_token
+      await axios.post(
+        "http://127.0.0.1:8000/users/register",
+        {
+          name: formData.name,
+          email: formData.email,
+          password: formData.password,
+        }
       );
 
-      alert("Login Successful");
+      alert("Registration Successful");
 
-      navigate("/dashboard");
+      navigate("/");
     } catch (error) {
-        console.log("FULL ERROR:", error);
-        console.log("RESPONSE:", error.response);
-        console.log("DATA:", error.response?.data);
-
-        alert(
-            JSON.stringify(error.response?.data) ||
-            "Invalid Credentials"
-        );
+      alert(
+        error?.response?.data?.detail ||
+          "Registration Failed"
+      );
     } finally {
       setLoading(false);
     }
@@ -62,29 +55,34 @@ const Login = () => {
 
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-white">
-            Expense Sharing App
+            Create Account
           </h1>
 
           <p className="text-gray-400 mt-2">
-            Login to continue
+            Register to continue
           </p>
-        </div>
-        <div className="mt-6 text-center">
-            <p className="text-gray-400">
-                Don't have an account?{" "}
-                <Link
-                to="/register"
-                className="text-blue-500 hover:text-blue-400"
-                >
-                Register
-                </Link>
-            </p>
         </div>
 
         <form
-          onSubmit={handleLogin}
+          onSubmit={handleRegister}
           className="space-y-5"
         >
+
+          <div>
+            <label className="block text-sm font-medium text-gray-300 mb-2">
+              Full Name
+            </label>
+
+            <input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              required
+              placeholder="Enter your name"
+              className="w-full px-4 py-3 rounded-lg bg-black border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500"
+            />
+          </div>
 
           <div>
             <label className="block text-sm font-medium text-gray-300 mb-2">
@@ -98,7 +96,7 @@ const Login = () => {
               onChange={handleChange}
               required
               placeholder="Enter your email"
-              className="w-full px-4 py-3 rounded-lg bg-black border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-3 rounded-lg bg-black border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500"
             />
           </div>
 
@@ -114,21 +112,33 @@ const Login = () => {
               onChange={handleChange}
               required
               placeholder="Enter your password"
-              className="w-full px-4 py-3 rounded-lg bg-black border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-3 rounded-lg bg-black border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500"
             />
           </div>
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 bg-blue-600 hover:bg-blue-700 transition rounded-lg text-white font-semibold disabled:opacity-50"
+            className="w-full py-3 bg-green-600 hover:bg-green-700 transition rounded-lg text-white font-semibold disabled:opacity-50"
           >
             {loading
-              ? "Logging in..."
-              : "Login"}
+              ? "Creating Account..."
+              : "Register"}
           </button>
 
         </form>
+
+        <div className="mt-6 text-center">
+          <p className="text-gray-400">
+            Already have an account?{" "}
+            <Link
+              to="/"
+              className="text-green-500 hover:text-green-400"
+            >
+              Login
+            </Link>
+          </p>
+        </div>
 
       </div>
 
@@ -136,4 +146,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;
