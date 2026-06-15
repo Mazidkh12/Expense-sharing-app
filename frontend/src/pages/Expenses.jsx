@@ -44,12 +44,24 @@ const Expenses = () => {
         "https://expense-sharing-app-b8cu.onrender.com/expenses",
         {
           group_id: Number(formData.group_id),
-          paid_by: Number(formData.paid_by),
           description: formData.description,
           amount: Number(formData.amount),
-          split_between: formData.split_between
+
+          currency: "INR",
+          exchange_rate: 1,
+          expense_date: new Date().toISOString().split("T")[0],
+
+          paid_by: Number(formData.paid_by),
+          split_type: "EQUAL",
+
+          splits: formData.split_between
             .split(",")
-            .map((id) => Number(id.trim())),
+            .map((id) => ({
+              user_id: Number(id.trim()),
+              share_amount:
+                Number(formData.amount) /
+                formData.split_between.split(",").length,
+            })),
         }
       );
 
